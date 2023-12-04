@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lLZN1iS40P89POcWriN7/Si7oeaB4iM4FJiuFrTAcG/Hla4IONIMsWB09svs4MoVbPFhcspRQIWdMaAw91Dtcg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Domvs\\Desktop\\Projetos\\domvsit-pdi23\\domvsit-pdi23-clients\\API\\API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Domvs\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.19.4\\microsoft.visualstudio.azure.containers.tools.targets.1.19.4.nupkg.sha512"
+  ],
+  "logs": []
+}
