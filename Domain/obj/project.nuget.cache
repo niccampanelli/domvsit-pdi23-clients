@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "E0zUhsldCxNgPvF7o/iM7QUOAKn0QIgCTZXLve06oRERdrBlve5kUwjcEhkzvORkmXT08LRbZSGK55lPg2IWVw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Domvs\\Desktop\\Projetos\\domvsit-pdi23\\domvsit-pdi23-clients\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Domvs\\.nuget\\packages\\fluentvalidation\\11.8.1\\fluentvalidation.11.8.1.nupkg.sha512",
+    "C:\\Users\\Domvs\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
+    "C:\\Users\\Domvs\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Domvs\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
