@@ -723,6 +723,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v7.0",
         "dependencies": {
+          "Domain": "1.0.0",
           "FluentValidation": "11.8.1",
           "Swashbuckle.AspNetCore.Annotations": "6.5.0",
           "System.IdentityModel.Tokens.Jwt": "7.0.3"

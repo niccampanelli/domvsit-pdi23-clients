@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 using System.Text;
 
 namespace API.Setup
@@ -26,6 +27,17 @@ namespace API.Setup
                     };
                     options.Events = new JwtBearerEvents()
                     {
+                        OnTokenValidated = context =>
+                        {
+                            var claims = context?.Principal?.Claims;
+                            var userId = claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid)?.Value;
+                            if (!string.IsNullOrEmpty(userId))
+                            {
+                                context?.Request?.Headers.Add("User-Id", userId);
+                            }
+
+                            return Task.CompletedTask;
+                        },
                         OnAuthenticationFailed = context =>
                         {
                             if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))

@@ -17,7 +17,7 @@ builder.Services.AddDbContext<DatabaseContext>(config => config.UseNpgsql(connec
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenConfig();
 
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.RegisterServices();

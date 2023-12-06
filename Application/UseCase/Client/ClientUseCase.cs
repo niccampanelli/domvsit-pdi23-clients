@@ -1,6 +1,6 @@
 ﻿namespace Application.UseCase.Client
 {
-    public class ClientUseCase
+    public class ClientUseCase : IClientUseCase
     {
     }
 }

@@ -1,4 +1,6 @@
-﻿using Domain.Base.Communication.Mediator;
+﻿using Application.Client.Boundaries.Create;
+using Application.Client.Commands;
+using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -22,12 +24,40 @@ namespace API.Controllers
 
         [HttpPost("[action]")]
         [SwaggerOperation(Summary = "Cadastrar cliente", Description = "Cadastra um novo cliente.")]
-        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(AuthenticateOutput))]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(CreateOutput))]
         [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
         [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
-        public async Task<> Create()
+        public async Task<IActionResult> Create([FromBody] CreateControllerInput input)
         {
+            var userIdHeader = Request.Headers["User-Id"].FirstOrDefault();
 
+            if (userIdHeader == null)
+            {
+                return BadRequest(new string[]
+                {
+                    "O id do consultor precisa ser informado"
+                });
+            }
+
+            var commandInput = new CreateInput()
+            {
+                Name = input.Name,
+                Email = input.Email,
+                Phone = input.Phone,
+                ConsultorId = long.Parse(userIdHeader)
+            };
+
+            var command = new CreateCommand(commandInput);
+            var result = await _mediatorHandler.SendCommand<CreateCommand, CreateOutput>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
         }
     }
 }

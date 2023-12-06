@@ -2,7 +2,7 @@
 
 namespace Application.Client.Boundaries.Create
 {
-    [SwaggerSchema(Required = new string[] { "Login", "Password" })]
+    [SwaggerSchema(Required = new string[] { "Name", "Email", "Phone", "ConsultorId" })]
     public class CreateInput
     {
         [SwaggerSchema(
@@ -25,5 +25,12 @@ namespace Application.Client.Boundaries.Create
             Format = "string"
             )]  
         public string Phone { get; set; }
+
+        [SwaggerSchema(
+            Title = "Id consultor",
+            Description = "Id do consultor/usuário responsável pelo cadastro do cliente",
+            Format = "long"
+            )]
+        public long ConsultorId { get; set; }
     }
 }

@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "VAC/07LMNcoSs4rrO5BB9pvaqhfxhOrqkHDMuJNaf+aef3jjisLjR1whNsDXLwqq4vR/Nt/uRbRz21anQpvUbQ==",
+  "dgSpecHash": "ku43bwWdCBDr7CyM3XM3qkq164ZW+CYLf3Zqfe9/vXO5AQdsYeB6PvJYDWfaf4eGoCfkjIjwRnCmnpxov3L8OQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Domvs\\Desktop\\Projetos\\domvsit-pdi23\\domvsit-pdi23-clients\\Application\\Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Domvs\\.nuget\\packages\\fluentvalidation\\11.8.1\\fluentvalidation.11.8.1.nupkg.sha512",
+    "C:\\Users\\Domvs\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
+    "C:\\Users\\Domvs\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\Domvs\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\Domvs\\.nuget\\packages\\microsoft.identitymodel.abstractions\\7.0.3\\microsoft.identitymodel.abstractions.7.0.3.nupkg.sha512",
     "C:\\Users\\Domvs\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\7.0.3\\microsoft.identitymodel.jsonwebtokens.7.0.3.nupkg.sha512",
     "C:\\Users\\Domvs\\.nuget\\packages\\microsoft.identitymodel.logging\\7.0.3\\microsoft.identitymodel.logging.7.0.3.nupkg.sha512",

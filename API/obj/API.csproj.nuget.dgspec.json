@@ -127,7 +127,11 @@
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\Domvs\\Desktop\\Projetos\\domvsit-pdi23\\domvsit-pdi23-clients\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Domvs\\Desktop\\Projetos\\domvsit-pdi23\\domvsit-pdi23-clients\\Domain\\Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

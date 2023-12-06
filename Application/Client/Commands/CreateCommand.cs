@@ -1,12 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Client.Boundaries.Create;
+using Application.Client.Commands.Validations;
+using Domain.Base.Messages;
 
 namespace Application.Client.Commands
 {
-    internal class CreateCommand
+    public class CreateCommand : Command<CreateOutput>
     {
+        public CreateInput Input { get; set; }
+
+        public CreateCommand(CreateInput input)
+        {
+            Input = input;
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new CreateCommandValidation().Validate(Input);
+            return ValidationResult.IsValid;
+        }
     }
 }
