@@ -10,5 +10,12 @@ namespace Application.Client.Boundaries.Create
             Format = "long"
             )]
         public long CreatedId { get; set; }
+
+        [SwaggerSchema(
+            Title = "Token de participante",
+            Description = "Token utilizado para autorizar os colaboradores do cliente",
+            Format = "CreateAttendantTokenOutput"
+            )]
+        public CreateAttendantTokenOutput AttendantToken { get; set; }
     }
 }

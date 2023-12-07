@@ -1,7 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Entities.Client;
 
-namespace Domain.Entities.Client
+namespace Domain.Entities.Attendant
 {
     [Table("attendant")]
     public class AttendantEntity

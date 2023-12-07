@@ -1,4 +1,5 @@
-﻿using Domain.Entities.Client;
+﻿using Domain.Entities.Attendant;
+using Domain.Entities.Client;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Setup

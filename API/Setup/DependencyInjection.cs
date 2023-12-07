@@ -1,6 +1,7 @@
 ﻿using Application.Client.Boundaries.Create;
 using Application.Client.Commands;
 using Application.Client.Handlers;
+using Application.UseCase.Attendant;
 using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
@@ -19,6 +20,7 @@ namespace API.Setup
 
             services.AddTransient<IRequestHandler<CreateCommand, CreateOutput>, CreateHandler>();
 
+            services.AddScoped<IAttendantUseCase, AttendantUseCase>();
             services.AddScoped<IClientUseCase, ClientUseCase>();
 
             services.AddScoped<IClientRepository, ClientRepository>();

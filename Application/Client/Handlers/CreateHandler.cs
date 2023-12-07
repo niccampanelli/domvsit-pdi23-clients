@@ -3,7 +3,10 @@ using Application.Client.Commands;
 using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
+using Domain.Dto.Client;
+using Domain.Option;
 using MediatR;
+using Microsoft.Extensions.Options;
 
 namespace Application.Client.Handlers
 {
@@ -11,18 +14,58 @@ namespace Application.Client.Handlers
     {
         private IMediatorHandler _mediatorHandler;
         private IClientUseCase _clientUseCase;
+        private IOptions<Secrets> _secrets;
 
-        public CreateHandler(IMediatorHandler mediatorHandler, IClientUseCase clientUseCase)
+        public CreateHandler(IMediatorHandler mediatorHandler, IClientUseCase clientUseCase, IOptions<Secrets> secrets)
         {
             _mediatorHandler = mediatorHandler;
             _clientUseCase = clientUseCase;
+            _secrets = secrets;
         }
 
         public async Task<CreateOutput> Handle(CreateCommand command, CancellationToken cancellationToken)
         {
             if (command.IsValid())
             {
+                var input = command.Input;
 
+                input.Email = input.Email.ToLower().Trim();
+
+                if (await _clientUseCase.VerifyEmailInUse(input.Email))
+                {
+                    var message = "O email do cliente já está em uso";
+                    await _mediatorHandler.PublishNotification(new DomainNotification(command.MessageType, message));
+                    return default;
+                }
+
+                var createClientInput = new ClientDto()
+                {
+                    Name = input.Name,
+                    Email = input.Email,
+                    Phone = input.Phone,
+                    CreatedAt = DateTime.UtcNow,
+                };
+
+                var createResult = await _clientUseCase.CreateClient(createClientInput);
+
+                var attendantTokenValidity = _secrets.Value.AttendantTokenDefaultValidityInMinutes;
+                var generateAttendantTokenResult = await _clientUseCase.GenerateAttendantToken(attendantTokenValidity, createResult.Id);
+
+                var registerAttendantTokenSessionResult = await _clientUseCase.RegisterAttendantTokenSession(generateAttendantTokenResult);
+
+                var output = new CreateOutput()
+                {
+                    CreatedId = createResult.Id,
+                    AttendantToken = new CreateAttendantTokenOutput()
+                    {
+                        Id = registerAttendantTokenSessionResult.Id,
+                        Value = registerAttendantTokenSessionResult.Value,
+                        CreatedAt = registerAttendantTokenSessionResult.CreatedAt,
+                        ExpiresAt = registerAttendantTokenSessionResult.ExpiresAt
+                    }
+                };
+
+                return output;
             }
 
             foreach (var error in command.ValidationResult.Errors)

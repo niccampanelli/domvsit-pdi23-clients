@@ -1,8 +1,8 @@
 ﻿using Domain.Dto.Attendant;
 
-namespace Domain.Repository
+namespace Application.UseCase.Attendant
 {
-    public interface IAttendantRepository
+    public interface IAttendantUseCase
     {
         Task<AttendantDto> CreateAttendant(AttendantDto input);
     }
