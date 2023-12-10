@@ -23,6 +23,8 @@ namespace API.Setup
             services.AddScoped<IAttendantUseCase, AttendantUseCase>();
             services.AddScoped<IClientUseCase, ClientUseCase>();
 
+            services.AddScoped<IAttendantRepository, AttendantRepository>();
+            services.AddScoped<IAttendantTokenRepository, AttendantTokenRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
         }
     }

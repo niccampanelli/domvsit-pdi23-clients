@@ -6,6 +6,7 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public long ConsultorId { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

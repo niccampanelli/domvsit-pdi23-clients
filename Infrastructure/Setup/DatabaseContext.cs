@@ -24,6 +24,10 @@ namespace Infrastructure.Setup
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<AttendantEntity>()
+                .HasOne(a => a.Client)
+                .WithMany();
         }
     }
 }

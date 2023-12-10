@@ -4,8 +4,8 @@ namespace Domain.Repository
 {
     public interface IClientRepository
     {
-        Task<bool> VerifyEmailInUse(string id);
+        Task<bool> VerifyEmailInUse(string email);
         Task<ClientDto> CreateClient(ClientDto input);
-        Task<string> VerifyClientExistsById(string id);
+        Task<bool> VerifyClientExistsById(long id);
     }
 }

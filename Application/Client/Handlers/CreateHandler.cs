@@ -1,8 +1,10 @@
 ﻿using Application.Client.Boundaries.Create;
 using Application.Client.Commands;
+using Application.UseCase.Attendant;
 using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
+using Domain.Dto.Attendant;
 using Domain.Dto.Client;
 using Domain.Option;
 using MediatR;
@@ -13,12 +15,14 @@ namespace Application.Client.Handlers
     public class CreateHandler : IRequestHandler<CreateCommand, CreateOutput>
     {
         private IMediatorHandler _mediatorHandler;
+        private IAttendantUseCase _attendantUseCase;
         private IClientUseCase _clientUseCase;
         private IOptions<Secrets> _secrets;
 
-        public CreateHandler(IMediatorHandler mediatorHandler, IClientUseCase clientUseCase, IOptions<Secrets> secrets)
+        public CreateHandler(IMediatorHandler mediatorHandler, IAttendantUseCase attendantUseCase, IClientUseCase clientUseCase, IOptions<Secrets> secrets)
         {
             _mediatorHandler = mediatorHandler;
+            _attendantUseCase = attendantUseCase;
             _clientUseCase = clientUseCase;
             _secrets = secrets;
         }
@@ -42,8 +46,7 @@ namespace Application.Client.Handlers
                 {
                     Name = input.Name,
                     Email = input.Email,
-                    Phone = input.Phone,
-                    CreatedAt = DateTime.UtcNow,
+                    Phone = input.Phone
                 };
 
                 var createResult = await _clientUseCase.CreateClient(createClientInput);
@@ -53,9 +56,20 @@ namespace Application.Client.Handlers
 
                 var registerAttendantTokenSessionResult = await _clientUseCase.RegisterAttendantTokenSession(generateAttendantTokenResult);
 
+                var createAttendantInput = new AttendantDto()
+                {
+                    Name = $"Administrador {input.Name}",
+                    Email = input.Email,
+                    ClientId = createResult.Id,
+                    Role = "Administrador"
+                };
+
+                var createAttendantResult = await _attendantUseCase.CreateAttendant(createAttendantInput);
+
                 var output = new CreateOutput()
                 {
                     CreatedId = createResult.Id,
+                    CreatedAttendantId = createAttendantResult.Id,
                     AttendantToken = new CreateAttendantTokenOutput()
                     {
                         Id = registerAttendantTokenSessionResult.Id,
