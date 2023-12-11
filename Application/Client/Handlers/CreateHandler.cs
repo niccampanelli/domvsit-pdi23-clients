@@ -46,7 +46,8 @@ namespace Application.Client.Handlers
                 {
                     Name = input.Name,
                     Email = input.Email,
-                    Phone = input.Phone
+                    Phone = input.Phone,
+                    ConsultorId = input.ConsultorId
                 };
 
                 var createResult = await _clientUseCase.CreateClient(createClientInput);

@@ -27,7 +27,24 @@ namespace Infrastructure.Setup
 
             modelBuilder.Entity<AttendantEntity>()
                 .HasOne(a => a.Client)
-                .WithMany();
+                .WithMany()
+                .HasForeignKey(a => a.ClientId)
+                .IsRequired();
+
+
+            modelBuilder.Entity<AttendantTokenEntity>()
+                .HasOne(a => a.Client)
+                .WithOne(c => c.AttendantToken)
+                .HasForeignKey<AttendantTokenEntity>(a => a.ClientId)
+                .IsRequired();
+
+            modelBuilder.Entity<AttendantTokenEntity>()
+                .HasIndex(a => a.Value)
+                .IsUnique();
+
+            modelBuilder.Entity<ClientEntity>()
+                .HasIndex(c => c.Email)
+                .IsUnique();
         }
     }
 }
