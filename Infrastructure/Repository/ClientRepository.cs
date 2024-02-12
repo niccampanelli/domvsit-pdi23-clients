@@ -28,6 +28,15 @@ namespace Infrastructure.Repository
             return result.Entity.MapToDto();
         }
 
+        public async Task<ClientDto> GetClientById(long id)
+        {
+            var entity = await _databaseContext.Clients.FirstOrDefaultAsync(c => c.Id == id);
+            if (entity == null)
+                return default;
+
+            return entity.MapToDto();
+        }
+
         public async Task<bool> VerifyClientExistsById(long id)
         {
             return await _databaseContext.Clients.AnyAsync(c => c.Id == id);

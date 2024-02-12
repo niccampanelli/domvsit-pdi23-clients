@@ -26,6 +26,16 @@ namespace Application.UseCase.Client
             return await _clientRepository.CreateClient(input);
         }
 
+        public async Task<ClientDto> GetClientById(long id)
+        {
+            return await _clientRepository.GetClientById(id);
+        }
+
+        public async Task<AttendantTokenDto> FindAttendantToken(string attendantToken)
+        {
+            return await _attendantTokenRepository.FindAttendantToken(attendantToken);
+        }
+
         public async Task<AttendantTokenDto> GenerateAttendantToken(long validityInMinutes, long clientId)
         {
             var uid = Regex.Replace(Convert.ToBase64String(Guid.NewGuid().ToByteArray()), "[/+=]", "");

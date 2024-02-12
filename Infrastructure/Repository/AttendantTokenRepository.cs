@@ -2,6 +2,7 @@
 using Domain.Mappers.Client;
 using Domain.Repository;
 using Infrastructure.Setup;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
@@ -12,6 +13,15 @@ namespace Infrastructure.Repository
         public AttendantTokenRepository(DatabaseContext databaseContext)
         {
             _databaseContext = databaseContext;
+        }
+
+        public async Task<AttendantTokenDto> FindAttendantToken(string attendantToken)
+        {
+            var entity = await _databaseContext.AttendantTokens.FirstOrDefaultAsync(t => t.Value.Equals(attendantToken));
+            if (entity == null)
+                return default;
+
+            return entity.MapToDto();
         }
 
         public async Task<AttendantTokenDto> RegisterAttendantTokenSession(AttendantTokenDto input)

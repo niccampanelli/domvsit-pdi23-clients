@@ -6,6 +6,7 @@ namespace Domain.Repository
     {
         Task<bool> VerifyEmailInUse(string email);
         Task<ClientDto> CreateClient(ClientDto input);
+        Task<ClientDto> GetClientById(long id);
         Task<bool> VerifyClientExistsById(long id);
     }
 }

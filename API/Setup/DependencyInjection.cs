@@ -1,4 +1,6 @@
-﻿using Application.Client.Boundaries.Create;
+﻿using Application.Client.Boundaries.Authenticate;
+using Application.Client.Boundaries.Create;
+using Application.Client.Boundaries.JoinAsAttendant;
 using Application.Client.Commands;
 using Application.Client.Handlers;
 using Application.UseCase.Attendant;
@@ -19,6 +21,8 @@ namespace API.Setup
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
             services.AddTransient<IRequestHandler<CreateCommand, CreateOutput>, CreateHandler>();
+            services.AddTransient<IRequestHandler<JoinAsAttendantCommand, JoinAsAttendantOutput>, JoinAsAttendantHandler>();
+            services.AddTransient<IRequestHandler<AuthenticateCommand, AuthenticateOutput>, AuthenticateHandler>();
 
             services.AddScoped<IAttendantUseCase, AttendantUseCase>();
             services.AddScoped<IClientUseCase, ClientUseCase>();

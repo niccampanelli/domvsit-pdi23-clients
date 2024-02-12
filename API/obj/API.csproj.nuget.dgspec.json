@@ -52,7 +52,7 @@
           "dependencies": {
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
-              "version": "[7.0.12, )"
+              "version": "[7.0.15, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -154,7 +154,7 @@
             },
             "System.IdentityModel.Tokens.Jwt": {
               "target": "Package",
-              "version": "[7.0.3, )"
+              "version": "[7.3.0, )"
             }
           },
           "imports": [
