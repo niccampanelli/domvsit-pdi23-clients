@@ -1,5 +1,6 @@
 ﻿using Application.Client.Boundaries.JoinAsAttendant;
 using Application.Client.Commands;
+using Application.UseCase.Attendant;
 using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
@@ -12,13 +13,13 @@ namespace Application.Client.Handlers
     public class JoinAsAttendantHandler : IRequestHandler<JoinAsAttendantCommand, JoinAsAttendantOutput>
     {
         private IMediatorHandler _mediatorHandler;
-        private IAttendantRepository _attendantRepository;
+        private IAttendantUseCase _attendantUseCase;
         private IClientUseCase _clientUseCase;
 
-        public JoinAsAttendantHandler(IMediatorHandler mediatorHandler, IAttendantRepository attendantRepository, IClientUseCase clientUseCase)
+        public JoinAsAttendantHandler(IMediatorHandler mediatorHandler, IAttendantUseCase attendantUseCase, IClientUseCase clientUseCase)
         {
             _mediatorHandler = mediatorHandler;
-            _attendantRepository = attendantRepository;
+            _attendantUseCase = attendantUseCase;
             _clientUseCase = clientUseCase;
         }
 
@@ -39,7 +40,7 @@ namespace Application.Client.Handlers
                     return default;
                 }
 
-                if (await _attendantRepository.VerifyEmailInUse(input.Email) == true)
+                if (await _attendantUseCase.VerifyEmailInUse(input.Email) == true)
                 {
                     var message = "Já existe um participante com o email informado";
                     await _mediatorHandler.PublishNotification(new DomainNotification(command.MessageType, message));
@@ -68,11 +69,11 @@ namespace Application.Client.Handlers
                     ClientId = clientId
                 };
 
-                var createResult = await _attendantRepository.CreateAttendant(createInput);
+                var createResult = await _attendantUseCase.CreateAttendant(createInput);
 
                 var output = new JoinAsAttendantOutput()
                 {
-                    Id = createResult.Id,
+                    Id = createResult.Id ?? 0L,
                     IsEmailInDomain = isEmailInDomain
                 };
 

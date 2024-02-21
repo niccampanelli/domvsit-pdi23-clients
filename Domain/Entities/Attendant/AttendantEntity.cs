@@ -8,7 +8,7 @@ namespace Domain.Entities.Attendant
     public class AttendantEntity
     {
         [Key]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         public string Name { get; set; }

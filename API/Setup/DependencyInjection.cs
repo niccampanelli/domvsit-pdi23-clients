@@ -1,8 +1,10 @@
 ﻿using Application.Client.Boundaries.Authenticate;
 using Application.Client.Boundaries.Create;
 using Application.Client.Boundaries.JoinAsAttendant;
+using Application.Client.Boundaries.List;
 using Application.Client.Commands;
 using Application.Client.Handlers;
+using Application.Commom.Boundaries;
 using Application.UseCase.Attendant;
 using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
@@ -20,9 +22,10 @@ namespace API.Setup
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
+            services.AddTransient<IRequestHandler<AuthenticateCommand, AuthenticateOutput>, AuthenticateHandler>();
             services.AddTransient<IRequestHandler<CreateCommand, CreateOutput>, CreateHandler>();
             services.AddTransient<IRequestHandler<JoinAsAttendantCommand, JoinAsAttendantOutput>, JoinAsAttendantHandler>();
-            services.AddTransient<IRequestHandler<AuthenticateCommand, AuthenticateOutput>, AuthenticateHandler>();
+            services.AddTransient<IRequestHandler<ListCommand, PaginatedResponse<ListOutput>>, ListHandler>();
 
             services.AddScoped<IAttendantUseCase, AttendantUseCase>();
             services.AddScoped<IClientUseCase, ClientUseCase>();

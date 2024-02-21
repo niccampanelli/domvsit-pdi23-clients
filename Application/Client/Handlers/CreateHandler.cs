@@ -70,7 +70,7 @@ namespace Application.Client.Handlers
                 var output = new CreateOutput()
                 {
                     CreatedId = createResult.Id,
-                    CreatedAttendantId = createAttendantResult.Id,
+                    CreatedAttendantId = createAttendantResult.Id ?? 0L,
                     AttendantToken = new CreateAttendantTokenOutput()
                     {
                         Id = registerAttendantTokenSessionResult.Id,

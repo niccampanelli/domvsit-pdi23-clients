@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Attendant;
+using Domain.Dto.Commom;
 using Domain.Repository;
 
 namespace Application.UseCase.Attendant
@@ -26,6 +27,16 @@ namespace Application.UseCase.Attendant
         public async Task<AttendantDto> GetAttendantByEmail(string email)
         {
             return await _attendantRepository.GetAttendantByEmail(email);
+        }
+
+        public async Task<int> Count()
+        {
+            return await _attendantRepository.Count();
+        }
+
+        public async Task<List<AttendantDto>> List(ListInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
+        {
+            return await _attendantRepository.List(input, pagination, sorting);
         }
     }
 }
