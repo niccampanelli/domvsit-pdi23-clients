@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Client;
+using Domain.Dto.Commom;
 
 namespace Application.UseCase.Client
 {
@@ -11,5 +12,7 @@ namespace Application.UseCase.Client
         Task<AttendantTokenDto> GenerateAttendantToken(long validityInMinutes, long clientId);
         Task<AttendantTokenDto> RegisterAttendantTokenSession(AttendantTokenDto input);
         Task<bool> VerifyClientExistsById(long id);
+        Task<int> Count();
+        Task<List<ClientDto>> List(ListClientInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting);
     }
 }

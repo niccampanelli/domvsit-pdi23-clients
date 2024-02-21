@@ -1,47 +1,47 @@
 ﻿using Swashbuckle.AspNetCore.Annotations;
 
-namespace Application.Client.Boundaries.List
+namespace Application.Client.Boundaries.ListClient
 {
-    public class ListOutput
+    public class ListClientOutput
     {
         [SwaggerSchema(
             Title = "Id",
-            Description = "Id do participante",
+            Description = "Id do cliente",
             Format = "long"
             )]
         public long Id { get; set; }
 
         [SwaggerSchema(
             Title = "Nome",
-            Description = "Nome do participante",
+            Description = "Nome do cliente",
             Format = "string"
             )]
         public string Name { get; set; }
 
         [SwaggerSchema(
             Title = "Email",
-            Description = "Endereço de email do participante",
+            Description = "Endereço de email do cliente",
             Format = "string"
             )]
         public string Email { get; set; }
 
         [SwaggerSchema(
-            Title = "Cargo",
-            Description = "Cargo do participante",
+            Title = "Telefone",
+            Description = "Telefone do cliente",
             Format = "string"
             )]
-        public string Role { get; set; }
+        public string Phone { get; set; }
 
         [SwaggerSchema(
-            Title = "Id do cliente",
-            Description = "Id do cliente associado ao participante",
+            Title = "Id do consultor",
+            Description = "Id do consultor associado ao cliente",
             Format = "long"
             )]
-        public long ClientId { get; set; }
+        public long ConsultorId { get; set; }
 
         [SwaggerSchema(
             Title = "Criado em",
-            Description = "Data na qual o evento foi criado",
+            Description = "Data na qual o cliente foi criado",
             Format = "DateTime"
             )]
         public DateTime CreatedAt { get; set; }

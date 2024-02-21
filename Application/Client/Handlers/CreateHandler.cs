@@ -53,7 +53,7 @@ namespace Application.Client.Handlers
                 var createResult = await _clientUseCase.CreateClient(createClientInput);
 
                 var attendantTokenValidity = _secrets.Value.AttendantTokenDefaultValidityInMinutes;
-                var generateAttendantTokenResult = await _clientUseCase.GenerateAttendantToken(attendantTokenValidity, createResult.Id);
+                var generateAttendantTokenResult = await _clientUseCase.GenerateAttendantToken(attendantTokenValidity, createResult.Id ?? 0L);
 
                 var registerAttendantTokenSessionResult = await _clientUseCase.RegisterAttendantTokenSession(generateAttendantTokenResult);
 
@@ -61,7 +61,7 @@ namespace Application.Client.Handlers
                 {
                     Name = $"Administrador {input.Name}",
                     Email = input.Email,
-                    ClientId = createResult.Id,
+                    ClientId = createResult.Id ?? 0L,
                     Role = "Administrador"
                 };
 
@@ -69,7 +69,7 @@ namespace Application.Client.Handlers
 
                 var output = new CreateOutput()
                 {
-                    CreatedId = createResult.Id,
+                    CreatedId = createResult.Id ?? 0L,
                     CreatedAttendantId = createAttendantResult.Id ?? 0L,
                     AttendantToken = new CreateAttendantTokenOutput()
                     {

@@ -1,6 +1,6 @@
 ﻿using Application.Client.Boundaries.Authenticate;
 using Application.Client.Boundaries.JoinAsAttendant;
-using Application.Client.Boundaries.List;
+using Application.Client.Boundaries.ListAttendant;
 using Application.Client.Commands;
 using Application.Commom.Boundaries;
 using Domain.Base.Communication.Mediator;
@@ -70,13 +70,13 @@ namespace API.Controllers
         [HttpPost("[action]")]
         [AllowAnonymous]
         [SwaggerOperation(Summary = "Listar participantes", Description = "Lista os partipantes.")]
-        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(PaginatedResponse<ListOutput>))]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(PaginatedResponse<ListAttendantOutput>))]
         [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
         [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
-        public async Task<IActionResult> List(ListInput input)
+        public async Task<IActionResult> List([FromBody] ListAttendantInput input)
         {
-            var command = new ListCommand(input);
-            var result = await _mediatorHandler.SendCommand<ListCommand, PaginatedResponse<ListOutput>>(command);
+            var command = new ListAttendantCommand(input);
+            var result = await _mediatorHandler.SendCommand<ListAttendantCommand, PaginatedResponse<ListAttendantOutput>>(command);
 
             if (IsValidOperation())
             {

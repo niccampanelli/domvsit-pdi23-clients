@@ -1,4 +1,5 @@
 ﻿using Domain.Dto.Client;
+using Domain.Dto.Commom;
 using Domain.Repository;
 using System.Text.RegularExpressions;
 
@@ -60,6 +61,16 @@ namespace Application.UseCase.Client
         public async Task<bool> VerifyClientExistsById(long id)
         {
             return await _clientRepository.VerifyClientExistsById(id);
+        }
+
+        public async Task<int> Count()
+        {
+            return await _clientRepository.Count();
+        }
+
+        public async Task<List<ClientDto>> List(ListClientInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
+        {
+            return await _clientRepository.List(input, pagination, sorting);
         }
     }
 }

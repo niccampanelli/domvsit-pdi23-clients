@@ -1,9 +1,9 @@
 ﻿using Application.Commom.Boundaries;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Application.Client.Boundaries.List
+namespace Application.Client.Boundaries.ListAttendant
 {
-    public class ListInput : IPaginationRequest, ISortingRequest
+    public class ListAttendantInput : IPaginationRequest, ISortingRequest
     {
         [SwaggerSchema(
             Title = "Página",
@@ -35,7 +35,7 @@ namespace Application.Client.Boundaries.List
 
         [SwaggerSchema(
             Title = "Id do cliente",
-            Description = "Id do cliente associado ao evento",
+            Description = "Id do cliente associado ao participante",
             Format = "long"
             )]
         public long? ClientId { get; set; }

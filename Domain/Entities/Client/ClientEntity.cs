@@ -7,7 +7,7 @@ namespace Domain.Entities.Client
     public class ClientEntity
     {
         [Key]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [Required]
         public string Name { get; set; }

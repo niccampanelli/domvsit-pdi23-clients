@@ -9,6 +9,6 @@ namespace Domain.Repository
         Task<AttendantDto> CreateAttendant(AttendantDto input);
         Task<AttendantDto> GetAttendantByEmail(string email);
         Task<int> Count();
-        Task<List<AttendantDto>> List(ListInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting);
+        Task<List<AttendantDto>> List(ListAttendantInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Application.Client.Boundaries.List;
+﻿using Application.Client.Boundaries.ListAttendant;
 using Application.Client.Commands;
 using Application.Commom.Boundaries;
 using Application.UseCase.Attendant;
@@ -10,18 +10,18 @@ using MediatR;
 
 namespace Application.Client.Handlers
 {
-    public class ListHandler : IRequestHandler<ListCommand, PaginatedResponse<ListOutput>>
+    public class ListAttendantHandler : IRequestHandler<ListAttendantCommand, PaginatedResponse<ListAttendantOutput>>
     {
         private IMediatorHandler _mediatorHandler;
         private IAttendantUseCase _attendantUseCase;
 
-        public ListHandler(IMediatorHandler mediatorHandler, IAttendantUseCase attendantUseCase)
+        public ListAttendantHandler(IMediatorHandler mediatorHandler, IAttendantUseCase attendantUseCase)
         {
             _mediatorHandler = mediatorHandler;
             _attendantUseCase = attendantUseCase;
         }
 
-        public async Task<PaginatedResponse<ListOutput>> Handle(ListCommand command, CancellationToken cancellationToken)
+        public async Task<PaginatedResponse<ListAttendantOutput>> Handle(ListAttendantCommand command, CancellationToken cancellationToken)
         {
             if (command.IsValid())
             {
@@ -29,7 +29,7 @@ namespace Application.Client.Handlers
 
                 var attendantCount = await _attendantUseCase.Count();
 
-                var listInput = new ListInputDto()
+                var listInput = new ListAttendantInputDto()
                 {
                     Search = input.Search,
                     ClientId = input.ClientId,
@@ -51,11 +51,11 @@ namespace Application.Client.Handlers
 
                 var attendantListCount = attendantList.Count();
 
-                var output = new PaginatedResponse<ListOutput>()
+                var output = new PaginatedResponse<ListAttendantOutput>()
                 {
                     CurrentPage = input.Page ?? 1,
                     ItemsCount = attendantListCount,
-                    Data = attendantList.Select(a => new ListOutput()
+                    Data = attendantList.Select(a => new ListAttendantOutput()
                     {
                         Id = a.Id ?? 0L,
                         Name = a.Name,

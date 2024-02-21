@@ -34,7 +34,7 @@ namespace Application.UseCase.Attendant
             return await _attendantRepository.Count();
         }
 
-        public async Task<List<AttendantDto>> List(ListInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
+        public async Task<List<AttendantDto>> List(ListAttendantInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
         {
             return await _attendantRepository.List(input, pagination, sorting);
         }

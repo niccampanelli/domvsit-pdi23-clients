@@ -1,11 +1,11 @@
-﻿using Application.Client.Boundaries.List;
+﻿using Application.Client.Boundaries.ListClient;
 using FluentValidation;
 
 namespace Application.Client.Commands.Validations
 {
-    public class ListCommandValidation : AbstractValidator<ListInput>
+    public class ListClientCommandValidation : AbstractValidator<ListClientInput>
     {
-        public ListCommandValidation()
+        public ListClientCommandValidation()
         {
             RuleFor(i => i.Page)
                 .GreaterThan(0);

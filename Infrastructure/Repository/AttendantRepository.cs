@@ -44,13 +44,13 @@ namespace Infrastructure.Repository
             return result;
         }
 
-        public async Task<List<AttendantDto>> List(ListInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
+        public async Task<List<AttendantDto>> List(ListAttendantInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
         {
             var query = _databaseContext.Attendants.AsQueryable();
-        
+
             if (sorting?.SortField != null)
             {
-                switch(sorting?.SortField.ToLower().Trim())
+                switch (sorting?.SortField.ToLower().Trim())
                 {
                     case "name":
                         if (sorting?.SortOrder != null && sorting.SortOrder.ToLower().Trim().Equals("desc"))
