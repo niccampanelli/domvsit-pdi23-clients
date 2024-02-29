@@ -1,4 +1,5 @@
 ﻿using Application.Client.Boundaries.Create;
+using Application.Client.Boundaries.GetClientByid;
 using Application.Client.Boundaries.ListClient;
 using Application.Client.Commands;
 using Application.Commom.Boundaries;
@@ -62,15 +63,40 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("[action]")]
+        [HttpGet("[action]")]
         [SwaggerOperation(Summary = "Listar clientes", Description = "Lista os clientes.")]
         [SwaggerResponse(201, Description = "Sucesso", Type = typeof(PaginatedResponse<ListClientOutput>))]
         [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
         [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
-        public async Task<IActionResult> List([FromBody] ListClientInput input)
+        public async Task<IActionResult> List([FromQuery] ListClientInput input)
         {
             var command = new ListClientCommand(input);
             var result = await _mediatorHandler.SendCommand<ListClientCommand, PaginatedResponse<ListClientOutput>>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Obter cliente", Description = "Obtém o cliente pelo id")]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(GetClientByIdOutput))]
+        [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
+        [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
+        public async Task<IActionResult> GetById(long id)
+        {
+            var input = new GetClientByIdInput()
+            {
+                Id = id
+            };
+
+            var command = new GetClientByIdCommand(input);
+            var result = await _mediatorHandler.SendCommand<GetClientByIdCommand, GetClientByIdOutput>(command);
 
             if (IsValidOperation())
             {

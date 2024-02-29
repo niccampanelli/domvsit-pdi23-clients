@@ -8,6 +8,7 @@ namespace Domain.Repository
         Task<bool> VerifyEmailInUse(string email);
         Task<AttendantDto> CreateAttendant(AttendantDto input);
         Task<AttendantDto> GetAttendantByEmail(string email);
+        Task<AttendantDto> GetAttendantById(long id);
         Task<int> Count();
         Task<List<AttendantDto>> List(ListAttendantInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting);
     }

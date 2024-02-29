@@ -29,6 +29,11 @@ namespace Application.UseCase.Attendant
             return await _attendantRepository.GetAttendantByEmail(email);
         }
 
+        public async Task<AttendantDto> GetAttendantById(long id)
+        {
+            return await _attendantRepository.GetAttendantById(id);
+        }
+
         public async Task<int> Count()
         {
             return await _attendantRepository.Count();

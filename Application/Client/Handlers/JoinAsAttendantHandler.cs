@@ -5,7 +5,6 @@ using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
 using Domain.Dto.Attendant;
-using Domain.Repository;
 using MediatR;
 
 namespace Application.Client.Handlers

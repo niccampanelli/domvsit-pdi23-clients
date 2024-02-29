@@ -1,5 +1,7 @@
 ﻿using Application.Client.Boundaries.Authenticate;
 using Application.Client.Boundaries.Create;
+using Application.Client.Boundaries.GetAttendantById;
+using Application.Client.Boundaries.GetClientByid;
 using Application.Client.Boundaries.JoinAsAttendant;
 using Application.Client.Boundaries.ListAttendant;
 using Application.Client.Boundaries.ListClient;
@@ -25,6 +27,8 @@ namespace API.Setup
 
             services.AddTransient<IRequestHandler<AuthenticateCommand, AuthenticateOutput>, AuthenticateHandler>();
             services.AddTransient<IRequestHandler<CreateCommand, CreateOutput>, CreateHandler>();
+            services.AddTransient<IRequestHandler<GetAttendantByIdCommand, GetAttendantByIdOutput>, GetAttendantByIdHandler>();
+            services.AddTransient<IRequestHandler<GetClientByIdCommand, GetClientByIdOutput>, GetClientByIdHandler>();
             services.AddTransient<IRequestHandler<JoinAsAttendantCommand, JoinAsAttendantOutput>, JoinAsAttendantHandler>();
             services.AddTransient<IRequestHandler<ListAttendantCommand, PaginatedResponse<ListAttendantOutput>>, ListAttendantHandler>();
             services.AddTransient<IRequestHandler<ListClientCommand, PaginatedResponse<ListClientOutput>>, ListClientHandler>();

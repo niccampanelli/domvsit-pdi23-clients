@@ -38,6 +38,15 @@ namespace Infrastructure.Repository
             return entity.MapToDto();
         }
 
+        public async Task<AttendantDto> GetAttendantById(long id)
+        {
+            var entity = await _databaseContext.Attendants.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            if (entity == null)
+                return default;
+
+            return entity.MapToDto();
+        }
+
         public async Task<int> Count()
         {
             var result = await _databaseContext.Attendants.CountAsync();

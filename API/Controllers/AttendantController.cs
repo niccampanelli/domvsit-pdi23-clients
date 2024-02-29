@@ -1,4 +1,5 @@
 ﻿using Application.Client.Boundaries.Authenticate;
+using Application.Client.Boundaries.GetAttendantById;
 using Application.Client.Boundaries.JoinAsAttendant;
 using Application.Client.Boundaries.ListAttendant;
 using Application.Client.Commands;
@@ -67,16 +68,40 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost("[action]")]
-        [AllowAnonymous]
+        [HttpGet("[action]")]
         [SwaggerOperation(Summary = "Listar participantes", Description = "Lista os partipantes.")]
         [SwaggerResponse(201, Description = "Sucesso", Type = typeof(PaginatedResponse<ListAttendantOutput>))]
         [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
         [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
-        public async Task<IActionResult> List([FromBody] ListAttendantInput input)
+        public async Task<IActionResult> List([FromQuery] ListAttendantInput input)
         {
             var command = new ListAttendantCommand(input);
             var result = await _mediatorHandler.SendCommand<ListAttendantCommand, PaginatedResponse<ListAttendantOutput>>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Obter participante", Description = "Obtém um participante pelo id")]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(GetAttendantByIdOutput))]
+        [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
+        [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
+        public async Task<IActionResult> GetById(long id)
+        {
+            var input = new GetAttendantByIdInput()
+            {
+                Id = id
+            };
+
+            var command = new GetAttendantByIdCommand(input);
+            var result = await _mediatorHandler.SendCommand<GetAttendantByIdCommand, GetAttendantByIdOutput>(command);
 
             if (IsValidOperation())
             {
