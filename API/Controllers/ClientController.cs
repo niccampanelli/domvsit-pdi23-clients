@@ -1,4 +1,5 @@
 ﻿using Application.Client.Boundaries.Create;
+using Application.Client.Boundaries.GetAttendantToken;
 using Application.Client.Boundaries.GetClientByid;
 using Application.Client.Boundaries.ListClient;
 using Application.Client.Commands;
@@ -97,6 +98,31 @@ namespace API.Controllers
 
             var command = new GetClientByIdCommand(input);
             var result = await _mediatorHandler.SendCommand<GetClientByIdCommand, GetClientByIdOutput>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpGet("{id}/[action]")]
+        [SwaggerOperation(Summary = "Obter token de participante", Description = "Obtém token de participantes do cliente com o id fornecido")]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(GetAttendantTokenOutput))]
+        [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
+        [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
+        public async Task<IActionResult> GetAttendantToken(long id)
+        {
+            var input = new GetAttendantTokenInput()
+            {
+                Id = id
+            };
+
+            var command = new GetAttendantTokenCommand(input);
+            var result = await _mediatorHandler.SendCommand<GetAttendantTokenCommand, GetAttendantTokenOutput>(command);
 
             if (IsValidOperation())
             {

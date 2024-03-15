@@ -53,6 +53,20 @@ namespace Infrastructure.Repository
         {
             var query = _databaseContext.Clients.AsQueryable();
 
+            if (input.Search != null)
+            {
+                query = query.Where(c =>
+                    c.Name.ToLower().Trim().Contains(input.Search.ToLower().Trim()) ||
+                    c.Email.ToLower().Trim().Contains(input.Search.ToLower().Trim()) ||
+                    c.Phone.ToLower().Trim().Contains(input.Search.ToLower().Trim())
+                );
+            }
+
+            if (input.ConsultorId != null)
+            {
+                query = query.Where(c => c.ConsultorId == input.ConsultorId);
+            }
+
             if (sorting?.SortField != null)
             {
                 switch (sorting?.SortField.ToLower().Trim())
@@ -103,20 +117,6 @@ namespace Infrastructure.Repository
 
                     query = query.Skip(skip).Take(take);
                 }
-            }
-
-            if (input.Search != null)
-            {
-                query = query.Where(c =>
-                    c.Name.ToLower().Trim().Contains(input.Search.ToLower().Trim()) ||
-                    c.Email.ToLower().Trim().Contains(input.Search.ToLower().Trim()) ||
-                    c.Phone.ToLower().Trim().Contains(input.Search.ToLower().Trim())
-                );
-            }
-
-            if (input.ConsultorId != null)
-            {
-                query = query.Where(c => c.ConsultorId ==  input.ConsultorId);
             }
 
             var result = query.Select(a => a.MapToDto());

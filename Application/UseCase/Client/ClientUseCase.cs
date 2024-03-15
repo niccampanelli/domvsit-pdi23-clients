@@ -32,6 +32,11 @@ namespace Application.UseCase.Client
             return await _clientRepository.GetClientById(id);
         }
 
+        public async Task<AttendantTokenDto> GetAttendantTokenByClientId(long clientId)
+        {
+            return await _attendantTokenRepository.GetAttendantTokenByClientId(clientId);
+        }
+
         public async Task<AttendantTokenDto> FindAttendantToken(string attendantToken)
         {
             return await _attendantTokenRepository.FindAttendantToken(attendantToken);
