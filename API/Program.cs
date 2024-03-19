@@ -24,6 +24,8 @@ builder.Services.AddSwaggerGenConfig();
 builder.Services.AddMediatR(config => config.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 builder.Services.RegisterServices();
 
+builder.Services.AddConfiguredHttpClients(builder.Configuration.Get<Secrets>());
+
 var app = builder.Build();
 
 app.UseSwagger();

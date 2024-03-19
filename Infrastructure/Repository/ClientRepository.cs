@@ -29,6 +29,20 @@ namespace Infrastructure.Repository
             return result.Entity.MapToDto();
         }
 
+        public async Task<ClientDto> UpdateClient(long id, UpdateClientInputDto input)
+        {
+            var entity = await _databaseContext.Clients.Where(c => c.Id == id).FirstOrDefaultAsync();
+
+            if (entity != null)
+            {
+                var updatedEntity = entity.UpdateEntity(input);
+                await _databaseContext.SaveChangesAsync();
+                return entity.MapToDto();
+            }
+
+            return default;
+        }
+
         public async Task<ClientDto> GetClientById(long id)
         {
             var entity = await _databaseContext.Clients.FirstOrDefaultAsync(c => c.Id == id);

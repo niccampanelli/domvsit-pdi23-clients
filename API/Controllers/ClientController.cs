@@ -2,6 +2,7 @@
 using Application.Client.Boundaries.GetAttendantToken;
 using Application.Client.Boundaries.GetClientByid;
 using Application.Client.Boundaries.ListClient;
+using Application.Client.Boundaries.UpdateClient;
 using Application.Client.Commands;
 using Application.Commom.Boundaries;
 using Domain.Base.Communication.Mediator;
@@ -73,6 +74,34 @@ namespace API.Controllers
         {
             var command = new ListClientCommand(input);
             var result = await _mediatorHandler.SendCommand<ListClientCommand, PaginatedResponse<ListClientOutput>>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpPut("[action]/{id}")]
+        [SwaggerOperation(Summary = "Atualizar cliente", Description = "Atualiza as informações de um cliente.")]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(UpdateClientOutput))]
+        [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
+        [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
+        public async Task<IActionResult> Update(long id, [FromBody] UpdateClientControllerInput input)
+        {
+            var commandInput = new UpdateClientInput()
+            {
+                Id = id,
+                Name = input.Name,
+                Email = input.Email,
+                Phone = input.Phone
+            };
+
+            var command = new UpdateClientCommand(commandInput);
+            var result = await _mediatorHandler.SendCommand<UpdateClientCommand, UpdateClientOutput>(command);
 
             if (IsValidOperation())
             {

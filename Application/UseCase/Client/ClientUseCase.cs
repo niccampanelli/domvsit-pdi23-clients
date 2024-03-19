@@ -27,6 +27,11 @@ namespace Application.UseCase.Client
             return await _clientRepository.CreateClient(input);
         }
 
+        public async Task<ClientDto> UpdateClient(long id, UpdateClientInputDto input)
+        {
+            return await _clientRepository.UpdateClient(id, input);
+        }
+
         public async Task<ClientDto> GetClientById(long id)
         {
             return await _clientRepository.GetClientById(id);

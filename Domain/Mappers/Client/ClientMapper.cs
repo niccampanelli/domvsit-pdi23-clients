@@ -30,5 +30,14 @@ namespace Domain.Mappers.Client
                 CreatedAt = input.CreatedAt
             };
         }
+
+        public static ClientEntity UpdateEntity(this ClientEntity entity, UpdateClientInputDto input)
+        {
+            entity.Name = input.Name ?? entity.Name;
+            entity.Email = input.Email ?? entity.Email;
+            entity.Phone = input.Phone ?? entity.Phone;
+
+            return entity;
+        }
     }
 }

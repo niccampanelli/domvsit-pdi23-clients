@@ -6,6 +6,7 @@ using Application.Client.Boundaries.GetClientByid;
 using Application.Client.Boundaries.JoinAsAttendant;
 using Application.Client.Boundaries.ListAttendant;
 using Application.Client.Boundaries.ListClient;
+using Application.Client.Boundaries.UpdateClient;
 using Application.Client.Commands;
 using Application.Client.Handlers;
 using Application.Commom.Boundaries;
@@ -34,12 +35,14 @@ namespace API.Setup
             services.AddTransient<IRequestHandler<JoinAsAttendantCommand, JoinAsAttendantOutput>, JoinAsAttendantHandler>();
             services.AddTransient<IRequestHandler<ListAttendantCommand, PaginatedResponse<ListAttendantOutput>>, ListAttendantHandler>();
             services.AddTransient<IRequestHandler<ListClientCommand, PaginatedResponse<ListClientOutput>>, ListClientHandler>();
+            services.AddTransient<IRequestHandler<UpdateClientCommand, UpdateClientOutput>, UpdateClientHandler>();
 
             services.AddScoped<IAttendantUseCase, AttendantUseCase>();
             services.AddScoped<IClientUseCase, ClientUseCase>();
 
             services.AddScoped<IAttendantRepository, AttendantRepository>();
             services.AddScoped<IAttendantTokenRepository, AttendantTokenRepository>();
+            services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
         }
     }

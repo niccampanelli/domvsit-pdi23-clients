@@ -7,10 +7,12 @@ namespace Application.UseCase.Attendant
     public class AttendantUseCase : IAttendantUseCase
     {
         private readonly IAttendantRepository _attendantRepository;
+        private readonly IAuthenticationRepository _authenticationRepository;
 
-        public AttendantUseCase(IAttendantRepository attendantRepository)
+        public AttendantUseCase(IAttendantRepository attendantRepository, IAuthenticationRepository authenticationRepository)
         {
             _attendantRepository = attendantRepository;
+            _authenticationRepository = authenticationRepository;
         }
 
         public async Task<bool> VerifyEmailInUse(string email)
@@ -42,6 +44,11 @@ namespace Application.UseCase.Attendant
         public async Task<List<AttendantDto>> List(ListAttendantInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting)
         {
             return await _attendantRepository.List(input, pagination, sorting);
+        }
+
+        public async Task<GenerateTokenForAttendantOutputDto> GenerateTokenForAttendant(GenerateTokenForAttendantInputDto input)
+        {
+            return await _authenticationRepository.GenerateTokenForAttendant(input);
         }
     }
 }

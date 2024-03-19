@@ -4,6 +4,7 @@ using Application.UseCase.Attendant;
 using Application.UseCase.Client;
 using Domain.Base.Communication.Mediator;
 using Domain.Base.Messages.Common.Notification;
+using Domain.Dto.Attendant;
 using MediatR;
 
 namespace Application.Client.Handlers
@@ -63,7 +64,32 @@ namespace Application.Client.Handlers
                     return default;
                 }
 
-                // Gerar tokens
+                var generateTokenInput = new GenerateTokenForAttendantInputDto()
+                {
+                    AttendantId = attendant.Id ?? 0L
+                };
+
+                var generatedTokens = await _attendantUseCase.GenerateTokenForAttendant(generateTokenInput);
+
+                if (generatedTokens == null || generatedTokens.Token == null)
+                {
+                    var message = "Não foi possível gerar os tokens de acesso";
+                    await _mediatorHandler.PublishNotification(new DomainNotification(command.MessageType, message));
+                    return default;
+                }
+
+                var output = new AuthenticateOutput()
+                {
+                    Id = attendant.Id ?? 0L,
+                    Name = attendant.Name,
+                    Email = attendant.Email,
+                    Role = attendant.Role,
+                    ClientId = clientId,
+                    Token = generatedTokens.Token,
+                    RefreshToken = generatedTokens.RefreshToken,
+                };
+
+                return output;
             }
 
             foreach (var error in command.ValidationResult.Errors)
