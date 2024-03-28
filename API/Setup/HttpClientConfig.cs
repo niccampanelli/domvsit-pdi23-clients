@@ -12,6 +12,11 @@ namespace API.Setup
             {
                 client.BaseAddress = new Uri(secrets.Api.Auth);
             });
+
+            services.AddHttpClient<IEventRepository, EventRepository>(client =>
+            {
+                client.BaseAddress = new Uri(secrets.Api.Events);
+            });
         }
     }
 }

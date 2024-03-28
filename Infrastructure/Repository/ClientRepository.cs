@@ -43,6 +43,20 @@ namespace Infrastructure.Repository
             return default;
         }
 
+        public async Task<bool> DeleteClient(long id)
+        {
+            var entity = await _databaseContext.Clients.Where(c => c.Id == id).FirstOrDefaultAsync();
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            _databaseContext.Clients.Remove(entity);
+            await _databaseContext.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<ClientDto> GetClientById(long id)
         {
             var entity = await _databaseContext.Clients.FirstOrDefaultAsync(c => c.Id == id);

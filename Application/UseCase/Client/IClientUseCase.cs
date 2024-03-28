@@ -8,6 +8,8 @@ namespace Application.UseCase.Client
         Task<bool> VerifyEmailInUse(string email);
         Task<ClientDto> CreateClient(ClientDto input);
         Task<ClientDto> UpdateClient(long id, UpdateClientInputDto input);
+        Task<bool> DeleteClient(long id);
+        Task DeleteClientEvents(long clientId);
         Task<ClientDto> GetClientById(long id);
         Task<AttendantTokenDto> GetAttendantTokenByClientId(long clientId);
         Task<AttendantTokenDto> FindAttendantToken(string attendantToken);

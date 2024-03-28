@@ -1,5 +1,6 @@
 ﻿using Application.Client.Boundaries.Authenticate;
 using Application.Client.Boundaries.Create;
+using Application.Client.Boundaries.DeleteClient;
 using Application.Client.Boundaries.GetAttendantById;
 using Application.Client.Boundaries.GetAttendantToken;
 using Application.Client.Boundaries.GetClientByid;
@@ -29,6 +30,7 @@ namespace API.Setup
 
             services.AddTransient<IRequestHandler<AuthenticateCommand, AuthenticateOutput>, AuthenticateHandler>();
             services.AddTransient<IRequestHandler<CreateCommand, CreateOutput>, CreateHandler>();
+            services.AddTransient<IRequestHandler<DeleteClientCommand, DeleteClientOutput>, DeleteClientHandler>();
             services.AddTransient<IRequestHandler<GetAttendantByIdCommand, GetAttendantByIdOutput>, GetAttendantByIdHandler>();
             services.AddTransient<IRequestHandler<GetAttendantTokenCommand, GetAttendantTokenOutput>, GetAttendantTokenHandler>();
             services.AddTransient<IRequestHandler<GetClientByIdCommand, GetClientByIdOutput>, GetClientByIdHandler>();

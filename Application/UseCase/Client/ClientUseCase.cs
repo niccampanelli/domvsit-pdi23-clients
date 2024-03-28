@@ -1,5 +1,6 @@
 ﻿using Domain.Dto.Client;
 using Domain.Dto.Commom;
+using Domain.Dto.Event;
 using Domain.Repository;
 using System.Text.RegularExpressions;
 
@@ -8,11 +9,13 @@ namespace Application.UseCase.Client
     public class ClientUseCase : IClientUseCase
     {
         private readonly IClientRepository _clientRepository;
+        private readonly IEventRepository _eventRepository;
         private readonly IAttendantTokenRepository _attendantTokenRepository;
 
-        public ClientUseCase(IClientRepository clientRepository, IAttendantTokenRepository attendantTokenRepository)
+        public ClientUseCase(IClientRepository clientRepository, IEventRepository eventRepository, IAttendantTokenRepository attendantTokenRepository)
         {
             _clientRepository = clientRepository;
+            _eventRepository = eventRepository;
             _attendantTokenRepository = attendantTokenRepository;
         }
 
@@ -30,6 +33,20 @@ namespace Application.UseCase.Client
         public async Task<ClientDto> UpdateClient(long id, UpdateClientInputDto input)
         {
             return await _clientRepository.UpdateClient(id, input);
+        }
+
+        public async Task<bool> DeleteClient(long id)
+        {
+            return await _clientRepository.DeleteClient(id);
+        }
+
+        public async Task DeleteClientEvents(long clientId)
+        {
+            var deleteEventByParamsInput = new DeleteEventByParamsInputDto()
+            {
+                ClientId = clientId
+            };
+            await _eventRepository.DeleteEventByParams(deleteEventByParamsInput);
         }
 
         public async Task<ClientDto> GetClientById(long id)

@@ -1,4 +1,5 @@
 ﻿using Application.Client.Boundaries.Create;
+using Application.Client.Boundaries.DeleteClient;
 using Application.Client.Boundaries.GetAttendantToken;
 using Application.Client.Boundaries.GetClientByid;
 using Application.Client.Boundaries.ListClient;
@@ -152,6 +153,31 @@ namespace API.Controllers
 
             var command = new GetAttendantTokenCommand(input);
             var result = await _mediatorHandler.SendCommand<GetAttendantTokenCommand, GetAttendantTokenOutput>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpDelete("[action]/{id}")]
+        [SwaggerOperation(Summary = "Deletar cliente", Description = "Deleta o cliente com o id fornecido")]
+        [SwaggerResponse(201, Description = "Sucesso", Type = typeof(DeleteClientOutput))]
+        [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
+        [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
+        public async Task<IActionResult> Delete(long id)
+        {
+            var input = new DeleteClientInput()
+            {
+                Id = id
+            };
+
+            var command = new DeleteClientCommand(input);
+            var result = await _mediatorHandler.SendCommand<DeleteClientCommand, DeleteClientOutput>(command);
 
             if (IsValidOperation())
             {

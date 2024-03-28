@@ -31,7 +31,6 @@ namespace Infrastructure.Setup
                 .HasForeignKey(a => a.ClientId)
                 .IsRequired();
 
-
             modelBuilder.Entity<AttendantTokenEntity>()
                 .HasOne(a => a.Client)
                 .WithOne(c => c.AttendantToken)
