@@ -50,5 +50,10 @@ namespace Application.UseCase.Attendant
         {
             return await _authenticationRepository.GenerateTokenForAttendant(input);
         }
+
+        public async Task<ExtractIdFromTokenOutputDto> ExtractIdFromToken(string token)
+        {
+            return await _authenticationRepository.ExtractIdFromToken(token);
+        }
     }
 }

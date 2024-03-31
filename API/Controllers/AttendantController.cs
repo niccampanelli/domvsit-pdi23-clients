@@ -2,6 +2,7 @@
 using Application.Client.Boundaries.GetAttendantById;
 using Application.Client.Boundaries.JoinAsAttendant;
 using Application.Client.Boundaries.ListAttendant;
+using Application.Client.Boundaries.RestoreAttendantData;
 using Application.Client.Commands;
 using Application.Commom.Boundaries;
 using Domain.Base.Communication.Mediator;
@@ -36,6 +37,31 @@ namespace API.Controllers
         {
             var command = new AuthenticateCommand(input);
             var result = await _mediatorHandler.SendCommand<AuthenticateCommand, AuthenticateOutput>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(result);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpGet("[action]")]
+        [SwaggerOperation(Summary = "Restaurar dados do participante", Description = "Obtém os dados do participante logado com base no token")]
+        [SwaggerResponse(200, Description = "Sucesso", Type = typeof(RestoreAttendantDataOutput))]
+        [SwaggerResponse(400, Description = "Erros 400", Type = typeof(List<string>))]
+        [SwaggerResponse(500, Description = "Erros 500", Type = typeof(List<string>))]
+        public async Task<IActionResult> RestoreAttendantData([FromHeader(Name = "Authorization")] string authorization)
+        {
+            var input = new RestoreAttendantDataInput()
+            {
+                Authorization = authorization
+            };
+
+            var command = new RestoreAttendantDataCommand(input);
+            var result = await _mediatorHandler.SendCommand<RestoreAttendantDataCommand, RestoreAttendantDataOutput>(command);
 
             if (IsValidOperation())
             {

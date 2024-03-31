@@ -12,5 +12,6 @@ namespace Application.UseCase.Attendant
         Task<int> Count();
         Task<List<AttendantDto>> List(ListAttendantInputDto input, PaginationInputDto? pagination, SortingInputDto? sorting);
         Task<GenerateTokenForAttendantOutputDto> GenerateTokenForAttendant(GenerateTokenForAttendantInputDto input);
+        Task<ExtractIdFromTokenOutputDto> ExtractIdFromToken(string token);
     }
 }
